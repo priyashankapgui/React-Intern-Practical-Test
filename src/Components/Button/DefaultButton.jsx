@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "../ui/button";
-
+//Defaul button componets
 const DefaultButton = ({ handleClick, className = '', btnLabel = '',Icon }) => {
   return (
     <Button 

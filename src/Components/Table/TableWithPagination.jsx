@@ -11,7 +11,6 @@ import {
 import { cn } from "@/lib/utils";
 import Pagination from "../Table/Pagination";
 
-
 const TableWithPagi = ({
   columns,
   data,
@@ -21,14 +20,11 @@ const TableWithPagi = ({
   getRowId,
   ...props
 }) => {
-  // Sorting state
   const [sortConfig, setSortConfig] = React.useState(null);
 
-  // Pagination state
   const [currentPage, setCurrentPage] = React.useState(1);
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
-  // Handle sorting
   const sortedData = React.useMemo(() => {
     let sortableData = [...data];
     if (sortConfig !== null) {
@@ -36,12 +32,12 @@ const TableWithPagi = ({
         const aValue = a[sortConfig.key];
         const bValue = b[sortConfig.key];
 
-        // Handle different data types 
         if (typeof aValue === "number" && typeof bValue === "number") {
-          return sortConfig.direction === "ascending" ? aValue - bValue : bValue - aValue;
+          return sortConfig.direction === "ascending"
+            ? aValue - bValue
+            : bValue - aValue;
         }
 
-        // Convert to string for comparison
         const aStr = String(aValue).toLowerCase();
         const bStr = String(bValue).toLowerCase();
 
@@ -57,7 +53,7 @@ const TableWithPagi = ({
     return sortableData;
   }, [data, sortConfig]);
 
-  // Handle pagination
+  // Handle the pagination
   const paginatedData = React.useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -66,11 +62,15 @@ const TableWithPagi = ({
 
   const requestSort = (key) => {
     let direction = "ascending";
-    if (sortConfig && sortConfig.key === key && sortConfig.direction === "ascending") {
+    if (
+      sortConfig &&
+      sortConfig.key === key &&
+      sortConfig.direction === "ascending"
+    ) {
       direction = "descending";
     }
     setSortConfig({ key, direction });
-    setCurrentPage(1); // Reset to first page on sort
+    setCurrentPage(1);
   };
 
   const getSortIndicator = (key) => {
@@ -82,8 +82,13 @@ const TableWithPagi = ({
 
   return (
     <div className="w-full">
-      <div className="overflow-hidden border border-purple-200 rounded-lg">
-        <Table className={cn("your-default-table-styles", className)} {...props}>
+
+        {/*Table componet*/}
+      <div className="overflow-hidden border border-purple-300 rounded-lg">
+        <Table
+          className={cn("your-default-table-styles", className)}
+          {...props}
+        >
           {caption && <TableCaption>{caption}</TableCaption>}
           <TableHeader className="text-nowrap bg-purple-40">
             <TableRow>
@@ -115,11 +120,11 @@ const TableWithPagi = ({
               ))}
             </TableRow>
           </TableHeader>
-          <TableBody className="border-purple-200">
+          <TableBody className="border-purple-200 ">
             {paginatedData.map((row) => {
               const rowKey = getRowId ? getRowId(row) : row.id;
               return (
-                <TableRow key={rowKey} className="border:">
+                <TableRow key={rowKey} className=" hover:bg-purple-30 border:">
                   {columns.map((column) => (
                     <TableCell key={`${rowKey}-${String(column.accessor)}`}>
                       {column.render
@@ -137,8 +142,12 @@ const TableWithPagi = ({
         </Table>
       </div>
 
-      {/* Pagination Controls */}
-      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+      {/* Pagination  */}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 };
