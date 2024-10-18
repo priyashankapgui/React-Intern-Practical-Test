@@ -42,7 +42,7 @@ const PasswordField = ({
       {type === 'password' && (
         <div className="absolute inset-y-0 right-0 flex items-center pr-2">
           <DefaultButton
-            handleSave={togglePasswordVisibility}
+            handleClick={togglePasswordVisibility}
             className="text-gray-500 border-none shadow-none pointer-events-auto bg-gradient-to-r from-gray-100 to-gray-100 hover:bg-gradient-to-r hover:from-gray-100 hover:to-gray-100"
             Icon={isPasswordVisible? <GoEye />:<GoEyeClosed />}
           />
