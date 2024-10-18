@@ -4,6 +4,7 @@ import InputField from '@/Components/InputField/InputField';
 import { FaRegUser } from "react-icons/fa";
 import PasswordField from '@/Components/InputField/PasswordField';
 import { ProductTable } from '../../Components/Product/ProductTable/ProductTable';
+import ProductCard from '@/Components/Product/ProductCard/ProductCard';
 
 
 
@@ -24,7 +25,7 @@ export default function LoginPage() {
 
   return (
     <div>
-      <SaveButton handleSave={handleSave} btnLabel='Sign In' className='w-64' /> 
+      {/* <SaveButton handleSave={handleSave} btnLabel='Sign In' className='w-64' /> 
 
       <InputField
           id="email"
@@ -43,9 +44,9 @@ export default function LoginPage() {
           value={password}
           onChange={handlePasswordChange }
           icon={<FaRegUser className="w-5 h-5" />}
-          />
+          /> */}
 
-          <ProductTable/>
+          <ProductCard/>
 
   
 

@@ -53,6 +53,7 @@ export default {
   			blue_light: '#23A3DA',
   			blue_light_hover: '#A3B7FF',
   			red_bold: '#EB001B',
+			red_btn: '#F34F4F',
   			red_light: '#FF3B30',
   			green_bold: '#34D399',
   			blue_bold: '#1E3A8A',
@@ -60,6 +61,7 @@ export default {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
 			  purple: {
+				30: '#f9e4ff',
 				40: '#f7dcff',
 				50: '#fcf4ff',
 				100: '#f8e8ff',

@@ -4,6 +4,8 @@ import { ProductColumns } from '../../Table/Columns';
 import DefaultButton from '../../../Components/Button/DefaultButton';
 import InputField from '../../InputField/InputField';
 import { useNavigate } from 'react-router-dom';
+import { GoPlus } from "react-icons/go";
+import { getAllProduct } from '@/apis/ProductApis/Apis';
 import axios from 'axios';
 
 export const ProductTable = () => {
@@ -12,12 +14,12 @@ export const ProductTable = () => {
   const [filteredData, setFilteredData] = useState([]);
   const navigate = useNavigate();
 
+  //get the products data
   useEffect(() => {
-    axios
-      .get('https://dummyjson.com/products')
-      .then((response) => {
-        setProducts(response.data.products);
-        setFilteredData(response.data.products);
+    getAllProduct()
+      .then((data) => {
+        setProducts(data);  
+        setFilteredData(data);  
       })
       .catch((error) => {
         console.error('Error fetching products:', error);
@@ -47,8 +49,8 @@ export const ProductTable = () => {
   return (
     <>
       <div className='flex justify-between mb-2'>
-        <h3 className="flex items-center font-semibold font-inter">Product List</h3>
-        <DefaultButton handleClick={handleAddProduct} btnLabel="Add Product" className="w-64" />
+        <h3 className="flex items-center text-xl font-semibold font-inter">Product List</h3>
+        <DefaultButton handleClick={handleAddProduct} btnLabel="New" className="w-24 text-purple-500 from-white to-white hover:from-purple-50 hover:to-purple-50 "   Icon={<GoPlus/>}/>
       </div>
 
       <div className="flex justify-between mb-2">
@@ -63,17 +65,17 @@ export const ProductTable = () => {
         </div>
 
         <div className='flex gap-4 mb-4'>
-          <DefaultButton handleClick={handleClear} btnLabel='Clear' />
-          <DefaultButton handleClick={handleSearch} btnLabel='Search' />
+          <DefaultButton handleClick={handleClear} btnLabel='Clear' className='w-24 text-red-500 from-white to-white hover:from-red-200 hover:to-red-200 ' />
+          <DefaultButton handleClick={handleSearch} btnLabel='Search' className='w-24' />
 
         </div>
       </div>
 
       <TableWithPagi
         columns={ProductColumns}
-        data={filteredData}  // Pass filteredData directly, not wrapped in an array
+        data={filteredData} 
         itemsPerPage={10}
-        getRowId={(row) => row.id}  // Ensure the correct ID field is used
+        getRowId={(row) => row.id}  
       />
     </>
   );

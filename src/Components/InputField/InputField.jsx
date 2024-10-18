@@ -1,5 +1,5 @@
 import React from 'react';
-
+//InpuField Component
 const InputField = ({
   id,
   type,
