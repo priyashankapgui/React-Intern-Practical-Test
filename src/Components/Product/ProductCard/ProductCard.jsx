@@ -2,6 +2,7 @@ import DefaultButton from "@/Components/Button/DefaultButton";
 import { Label } from "@/Components/ui/label";
 import { useState } from "react";
 import StarRatings from "react-star-ratings";
+import DeleteConfirm from "@/Components/Popup/Delete Popup";
 
 // product data
 const PRODUCT_DATA = {
@@ -9,6 +10,7 @@ const PRODUCT_DATA = {
   price: "Rs. 99.00",
   discount: "10%", 
   stockStatus: "Low Stock",
+  rate:"4.56",
   description: `The Essence Mascara Lash Princess is a popular mascara known for 
     its volumizing and lengthening effects. Achieve dramatic lashes with this 
     long-lasting and cruelty-free formula.`,
@@ -22,7 +24,8 @@ const PRODUCT_DATA = {
 };
 
 const ProductCard = () => {
-  const [rating, setRating] = useState(4.56);
+  const [rating, setRating] = useState(4.5);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   return (
     <div className="relative max-w-xl p-6 mx-auto mt-20 bg-white rounded-lg shadow-lg">
@@ -96,7 +99,17 @@ const ProductCard = () => {
 
       {/* Delete Button */}
       <div className="text-right">
-        <DefaultButton btnLabel="Delete"  className="px-4 py-2 font-semibold text-white rounded w-44 from-red_btn to-red_btn font-inter hover:bg-gradient-to-r hover:from-red-400 hover:to-red-400" />
+        <DefaultButton btnLabel="Delete"  handleClick={() => setShowDeleteModal(true)} className="px-4 py-2 font-semibold text-white rounded w-44 from-red_btn to-red_btn font-inter hover:bg-gradient-to-r hover:from-red-400 hover:to-red-400" />
+        {showDeleteModal && (
+        <DeleteConfirm 
+         
+          onDelete={() => {
+            console.log("Product deleted");
+            setShowDeleteModal(false);  
+          }} 
+          onCancel={() => setShowDeleteModal(false)}  
+        />
+      )}
       </div>
     </div>
   );
