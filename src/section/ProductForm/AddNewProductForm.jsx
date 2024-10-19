@@ -4,6 +4,7 @@ import InputField from "@/Components/InputField/InputField";
 import { Textarea } from "@/Components/ui/textarea";
 import { AddNewItemSchema } from "@/schema/productsSchema/productSchema";
 import DefaultButton from "@/Components/Button/DefaultButton";
+import SuccessConfirm from "@/Components/Popup/SuccessConfirm";
 
 const AddNewProductForm = () => {
   const [formData, setFormData] = useState({
@@ -20,6 +21,7 @@ const AddNewProductForm = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -40,6 +42,7 @@ const AddNewProductForm = () => {
       setErrors(formattedErrors);
     } else {
       console.log("Form submitted with data:", formData);
+      setShowSuccessPopup(true);
     }
   };
 
@@ -57,6 +60,11 @@ const AddNewProductForm = () => {
       shippingInformation: "",
     });
     setErrors({});
+  };
+
+  const onConfirm = () => {
+    handleClear();
+    setShowSuccessPopup(false);
   };
 
   return (
@@ -266,6 +274,12 @@ const AddNewProductForm = () => {
           </div>
         </div>
       </form>
+      {showSuccessPopup && (
+        <SuccessConfirm
+          message="Product added successfully!"
+          onConfirm={onConfirm}
+        />
+      )}
     </div>
   );
 };
