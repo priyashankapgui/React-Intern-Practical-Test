@@ -3,12 +3,15 @@ import DefaultButton from "@/Components/Button/DefaultButton";
 import { Label } from "@/Components/ui/label";
 import StarRatings from "react-star-ratings";
 import DeleteConfirm from "@/Components/Popup/Delete Popup";
+import { useNavigate } from 'react-router-dom';
 import { getAllProduct } from "@/apis/ProductApis/Apis";
+import { deleteProduct } from "@/apis/ProductApis/Apis";
 
 const ProductCard = ({ id }) => {
   const [product, setProduct] = useState(null);
   const [rating, setRating] = useState(0);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch all products and filter by ID
@@ -120,21 +123,28 @@ const ProductCard = ({ id }) => {
 
         {/* Delete Button */}
         <div className="text-right">
-          <DefaultButton
-            btnLabel="Delete"
-            handleClick={() => setShowDeleteModal(true)}
-            className="px-4 py-2 font-semibold text-white rounded w-44 from-red_btn to-red_btn font-inter hover:bg-gradient-to-r hover:from-red-400 hover:to-red-400"
-          />
-          {showDeleteModal && (
-            <DeleteConfirm
-              onDelete={() => {
-                console.log("Product deleted");
-                setShowDeleteModal(false);
-              }}
-              onCancel={() => setShowDeleteModal(false)}
-            />
-          )}
-        </div>
+  <DefaultButton
+    btnLabel="Delete"
+    handleClick={() => setShowDeleteModal(true)}
+    className="px-4 py-2 font-semibold text-white rounded w-44 from-red_btn to-red_btn font-inter hover:bg-gradient-to-r hover:from-red-400 hover:to-red-400"
+  />
+  {showDeleteModal && (
+    <DeleteConfirm
+      onDelete={() => {
+        deleteProduct(product.id) // Call the delete API
+          .then(() => {
+            console.log("Product deleted");
+            setShowDeleteModal(false);
+            navigate('/product-list');
+          })
+          .catch((error) => {
+            console.error("Error deleting product:", error);
+          });
+      }}
+      onCancel={() => setShowDeleteModal(false)}
+    />
+  )}
+</div>
       </div>
     </div>
   );
