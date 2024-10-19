@@ -51,7 +51,7 @@ const LoginForm = () => {
             placeholder="Email"
             value={email}
             onChange={handleEmailChange}
-            icon={<FaRegUser className="w-5 h-5" />}
+            icon={<FaRegUser className="w-5 h-5 mr-3" />}
           />
           {errors?.email && <p className="text-sm text-red-500">{errors.email._errors[0]}</p>}
         </div>
