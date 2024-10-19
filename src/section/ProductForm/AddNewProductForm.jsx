@@ -42,7 +42,7 @@ const AddNewProductForm = () => {
       setErrors(formattedErrors);
     } else {
       console.log("Form submitted with data:", formData);
-      setShowSuccessPopup(true); 
+      setShowSuccessPopup(true);
     }
   };
 
@@ -63,8 +63,8 @@ const AddNewProductForm = () => {
   };
 
   const onConfirm = () => {
-    handleClear(); 
-    setShowSuccessPopup(false); 
+    handleClear();
+    setShowSuccessPopup(false);
   };
 
   return (
@@ -277,8 +277,7 @@ const AddNewProductForm = () => {
       {showSuccessPopup && (
         <SuccessConfirm
           message="Product added successfully!"
-          onConfirm={onConfirm} 
-          
+          onConfirm={onConfirm}
         />
       )}
     </div>
