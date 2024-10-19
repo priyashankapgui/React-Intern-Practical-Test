@@ -53,7 +53,7 @@ const TableWithPagi = ({
     return sortableData;
   }, [data, sortConfig]);
 
-  // Handle the pagination
+  // Handle pagination
   const paginatedData = React.useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -62,11 +62,7 @@ const TableWithPagi = ({
 
   const requestSort = (key) => {
     let direction = "ascending";
-    if (
-      sortConfig &&
-      sortConfig.key === key &&
-      sortConfig.direction === "ascending"
-    ) {
+    if (sortConfig && sortConfig.key === key && sortConfig.direction === "ascending") {
       direction = "descending";
     }
     setSortConfig({ key, direction });
@@ -77,17 +73,14 @@ const TableWithPagi = ({
     if (!sortConfig || sortConfig.key !== key) {
       return null;
     }
-    return sortConfig.direction === "ascending" ? " 🔼" : " 🔽";
+    return sortConfig.direction === "ascending" ? "sorted-asc" : "sorted-desc";
   };
 
   return (
     <div className="w-full">
-      {/*Table component*/}
+      {/* Table component */}
       <div className="overflow-hidden border border-purple-300 rounded-lg">
-        <Table
-          className={cn("your-default-table-styles", className)}
-          {...props}
-        >
+        <Table className={cn("your-default-table-styles", className)} {...props}>
           {caption && <TableCaption>{caption}</TableCaption>}
           <TableHeader className="text-nowrap bg-purple-40">
             <TableRow>
@@ -95,7 +88,7 @@ const TableWithPagi = ({
                 <TableHead
                   key={String(column.accessor)}
                   onClick={() => requestSort(column.accessor)}
-                  className="cursor-pointer select-none"
+                  className={cn("cursor-pointer select-none", getSortIndicator(column.accessor))}
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
@@ -113,7 +106,6 @@ const TableWithPagi = ({
                 >
                   <span className="flex items-center">
                     {column.header}
-                    {getSortIndicator(column.accessor)}
                   </span>
                 </TableHead>
               ))}
@@ -125,16 +117,13 @@ const TableWithPagi = ({
               return (
                 <TableRow
                   key={rowKey}
-                  className="border cursor-pointer hover:bg-purple-30"
+                  className="bg-white border cursor-pointer hover:bg-purple-30"
                   onClick={() => onRowClick(row)} 
                 >
                   {columns.map((column) => (
                     <TableCell key={`${rowKey}-${String(column.accessor)}`}>
                       {column.render
-                        ? column.render(row[column.accessor], row, {
-                            edit: handleEdit ?? (() => {}),
-                            delete: handleDelete ?? (() => {}),
-                          })
+                        ? column.render(row[column.accessor], row)
                         : String(row[column.accessor])}
                     </TableCell>
                   ))}
@@ -145,7 +134,7 @@ const TableWithPagi = ({
         </Table>
       </div>
 
-      {/* Pagination  */}
+      {/* Pagination */}
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
