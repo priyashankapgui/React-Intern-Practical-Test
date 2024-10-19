@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { FaRegUser } from "react-icons/fa";
 import InputField from '@/Components/InputField/InputField';
 import PasswordField from '@/Components/InputField/PasswordField';
+import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
 const loginSchema = z.object({
@@ -14,6 +15,7 @@ const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({}); 
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -36,7 +38,8 @@ const LoginForm = () => {
       
       setErrors({});
       console.log('Form submitted with:', { email, password });
-      //  sign-in logic 
+      
+      navigate('/product-list'); 
     }
   };
 
