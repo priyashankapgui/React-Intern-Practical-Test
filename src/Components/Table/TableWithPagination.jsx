@@ -18,10 +18,10 @@ const TableWithPagi = ({
   itemsPerPage = 10,
   className,
   getRowId,
+  onRowClick, 
   ...props
 }) => {
   const [sortConfig, setSortConfig] = React.useState(null);
-
   const [currentPage, setCurrentPage] = React.useState(1);
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
@@ -82,8 +82,7 @@ const TableWithPagi = ({
 
   return (
     <div className="w-full">
-
-        {/*Table componet*/}
+      {/*Table component*/}
       <div className="overflow-hidden border border-purple-300 rounded-lg">
         <Table
           className={cn("your-default-table-styles", className)}
@@ -120,11 +119,15 @@ const TableWithPagi = ({
               ))}
             </TableRow>
           </TableHeader>
-          <TableBody className="border-purple-200 ">
+          <TableBody className="border-purple-200">
             {paginatedData.map((row) => {
               const rowKey = getRowId ? getRowId(row) : row.id;
               return (
-                <TableRow key={rowKey} className=" hover:bg-purple-30 border:">
+                <TableRow
+                  key={rowKey}
+                  className="border cursor-pointer hover:bg-purple-30"
+                  onClick={() => onRowClick(row)} 
+                >
                   {columns.map((column) => (
                     <TableCell key={`${rowKey}-${String(column.accessor)}`}>
                       {column.render
