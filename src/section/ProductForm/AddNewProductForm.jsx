@@ -5,6 +5,7 @@ import { Textarea } from "@/Components/ui/textarea";
 import { AddNewItemSchema } from "@/schema/productsSchema/productSchema";
 import DefaultButton from "@/Components/Button/DefaultButton";
 import SuccessConfirm from "@/Components/Popup/SuccessConfirm";
+import { addProduct } from "@/apis/ProductApis/Apis";
 
 const AddNewProductForm = () => {
   const [formData, setFormData] = useState({
@@ -31,18 +32,25 @@ const AddNewProductForm = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     // Validate form data using zod
     const result = AddNewItemSchema.safeParse(formData);
-
+  
     if (!result.success) {
       const formattedErrors = result.error.format();
       setErrors(formattedErrors);
     } else {
       console.log("Form submitted with data:", formData);
-      setShowSuccessPopup(true);
+  
+      try {
+        const addedProduct = await addProduct(formData); 
+        console.log('Product successfully added:', addedProduct);
+        setShowSuccessPopup(true); 
+      } catch (error) {
+        console.error('Error adding product:', error);
+      }
     }
   };
 
@@ -68,10 +76,13 @@ const AddNewProductForm = () => {
   };
 
   return (
-    <div className="max-w-2xl p-8 mx-auto bg-white rounded-lg shadow-lg">
+    <div className="w-6/12 p-8 mx-auto mt-6 bg-white rounded-lg shadow-lg">
+      
+      <form onSubmit={handleSubmit} className="p-4 space-y-4">
+        
       <h2 className="mb-6 text-2xl font-semibold text-black">Add New Item</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
+
           {/*Product Titel */}
           <InputField
             id="title"
@@ -90,6 +101,7 @@ const AddNewProductForm = () => {
         </div>
 
         <div>
+
           {/*Product description*/}
           <Textarea
             id="description"
@@ -108,6 +120,7 @@ const AddNewProductForm = () => {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
+
             {/*Price*/}
             <InputField
               id="price"
@@ -123,6 +136,7 @@ const AddNewProductForm = () => {
             )}
           </div>
           <div>
+
             {/*Discount*/}
             <InputField
               id="discount"
@@ -143,6 +157,7 @@ const AddNewProductForm = () => {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
+
             {/*Stock Qty*/}
             <InputField
               id="stockQty"
@@ -159,7 +174,9 @@ const AddNewProductForm = () => {
               </p>
             )}
           </div>
+
           <div>
+
             {/*Availability Status*/}
             <InputField
               id="availabilityStatus"
@@ -180,6 +197,7 @@ const AddNewProductForm = () => {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
+
             {/*Category*/}
             <InputField
               id="category"
@@ -198,6 +216,7 @@ const AddNewProductForm = () => {
           </div>
 
           <div>
+
             {/*Brand Name*/}
             <InputField
               id="brandName"
@@ -218,6 +237,7 @@ const AddNewProductForm = () => {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
+
             {/*Warranty Information*/}
             <InputField
               id="warrantyInformation"
@@ -236,6 +256,7 @@ const AddNewProductForm = () => {
           </div>
 
           <div>
+
             {/*Shipping Infomation*/}
             <InputField
               id="shippingInformation"
@@ -256,6 +277,7 @@ const AddNewProductForm = () => {
 
         <div className="flex justify-end gap-10 ">
           <div>
+
             {/*Clear Button*/}
             <DefaultButton
               handleClick={handleClear}
@@ -265,6 +287,7 @@ const AddNewProductForm = () => {
           </div>
 
           <div>
+            
             {/*Add Button*/}
             <DefaultButton
               btnLabel="Add"
