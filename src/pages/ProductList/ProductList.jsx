@@ -5,7 +5,7 @@ import { ProductTable } from '@/Components/Product/ProductTable/ProductTable'
 const ProductList = () => {
   return (
     <Layout>
-        <div>
+        <div className='p-9'>
             <ProductTable/>
         </div>
     </Layout>
