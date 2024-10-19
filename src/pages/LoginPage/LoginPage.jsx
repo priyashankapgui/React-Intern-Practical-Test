@@ -1,5 +1,6 @@
 
 import ProductCard from '@/Components/Product/ProductCard/ProductCard';
+import { ProductTable } from '@/Components/Product/ProductTable/ProductTable';
 import LoginForm from '@/section/LoginForm/LoginForm';
 
 
@@ -15,7 +16,8 @@ export default function LoginPage() {
           <LoginForm/>
           </div>
 
-          <ProductCard/>
+          <ProductTable/>
+
 
   
 

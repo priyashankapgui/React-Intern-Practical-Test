@@ -19,8 +19,8 @@ export const ProductTable = () => {
   useEffect(() => {
     getAllProduct()
       .then((data) => {
-        setProducts(data);  
-        setFilteredData(data);  
+        setProducts(data);
+        setFilteredData(data);
       })
       .catch((error) => {
         console.error('Error fetching products:', error);
@@ -31,13 +31,13 @@ export const ProductTable = () => {
   const handleSearchChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
-    setSelectedSuggestion(''); 
+    setSelectedSuggestion('');
   };
 
   // Handle suggestion selection
   const handleSuggestionSelect = (suggestion) => {
     setSelectedSuggestion(suggestion);
-    setSearchQuery(suggestion); 
+    setSearchQuery(suggestion);
   };
 
   // Handle search click
@@ -56,7 +56,7 @@ export const ProductTable = () => {
       );
       setFilteredData(filtered);
     } else {
-      setFilteredData(products); 
+      setFilteredData(products);
     }
   };
 
@@ -64,13 +64,18 @@ export const ProductTable = () => {
   const handleClear = () => {
     setSearchQuery('');
     setSelectedSuggestion('');
-    setSearchInitiated(false); 
-    setFilteredData(products); 
+    setSearchInitiated(false);
+    setFilteredData(products);
   };
 
   // Handle adding a new product
   const handleAddProduct = () => {
     navigate('/add-product');
+  };
+
+  // Handle row click and navigate to single product page
+  const handleRowClick = (row) => {
+    navigate(`/product/${row.id}`);  // Replace `/product/` with your actual route if different
   };
 
   return (
@@ -93,7 +98,7 @@ export const ProductTable = () => {
             value={searchQuery}
             placeholder="Search by Product ID or Name"
             onChange={handleSearchChange}
-            suggestions={products.map((product) => `${product.id} ${product.title}`)} 
+            suggestions={products.map((product) => `${product.id} ${product.title}`)}
             onSuggestionSelect={handleSuggestionSelect}
           />
         </div>
@@ -114,9 +119,10 @@ export const ProductTable = () => {
 
       <TableWithPagi
         columns={ProductColumns}
-        data={searchInitiated ? filteredData : products} 
+        data={searchInitiated ? filteredData : products}
         itemsPerPage={10}
         getRowId={(row) => row.id}
+        onRowClick={handleRowClick}  // Add the row click handler
       />
     </>
   );

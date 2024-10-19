@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '../ui/button';
 import { RiDeleteBin6Line } from "react-icons/ri";
 
+//Delete Popup
 const DeleteConfirm = ({  onDelete, onCancel }) => {
 
     const [isVisible, setIsVisible] = useState(true);
