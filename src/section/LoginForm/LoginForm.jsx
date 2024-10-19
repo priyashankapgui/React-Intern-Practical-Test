@@ -33,7 +33,7 @@ const LoginForm = () => {
       const formattedErrors = result.error.format();
       setErrors(formattedErrors);
     } else {
-      // Clear errors and handle successful submission
+      
       setErrors({});
       console.log('Form submitted with:', { email, password });
       //  sign-in logic 

@@ -70,12 +70,12 @@ export const ProductTable = () => {
 
   // Handle adding a new product
   const handleAddProduct = () => {
-    navigate('/add-product');
+    navigate('/add-new');
   };
 
   // Handle row click and navigate to single product page
   const handleRowClick = (row) => {
-    navigate(`/product/${row.id}`);  // Replace `/product/` with your actual route if different
+    navigate(`/product/${row.id}`); 
   };
 
   return (
