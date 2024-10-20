@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
-import TableWithPagi from '../../Table/TableWithPagination';
-import { ProductColumns } from '../../Table/Columns';
-import DefaultButton from '../../../Components/Button/DefaultButton';
-import SearchBar from '../../Searchbar/Searchbar';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import TableWithPagi from "../../Table/TableWithPagination";
+import { ProductColumns } from "../../Table/Columns";
+import DefaultButton from "../../../Components/Button/DefaultButton";
+import SearchBar from "../../Searchbar/Searchbar";
+import { useNavigate } from "react-router-dom";
 import { GoPlus } from "react-icons/go";
-import { getAllProduct } from '@/apis/ProductApis/Apis';
+import { getAllProduct } from "@/apis/ProductApis/Apis";
 
 export const ProductTable = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [products, setProducts] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-  const [selectedSuggestion, setSelectedSuggestion] = useState('');
+  const [selectedSuggestion, setSelectedSuggestion] = useState("");
   const [searchInitiated, setSearchInitiated] = useState(false);
   const navigate = useNavigate();
 
@@ -19,12 +19,12 @@ export const ProductTable = () => {
   useEffect(() => {
     getAllProduct()
       .then((data) => {
-        setProducts(data || []);  
+        setProducts(data || []);
         setFilteredData(data || []);
         console.log("Fetched Products:", data);
       })
       .catch((error) => {
-        console.error('Error fetching products:', error);
+        console.error("Error fetching products:", error);
       });
   }, []);
 
@@ -32,7 +32,7 @@ export const ProductTable = () => {
   const handleSearchChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
-    setSelectedSuggestion('');
+    setSelectedSuggestion("");
   };
 
   // Handle suggestion selection
@@ -46,14 +46,16 @@ export const ProductTable = () => {
     setSearchInitiated(true);
 
     if (selectedSuggestion) {
-      const [id] = selectedSuggestion.split(' ');
-      const filtered = products.filter((product) =>
-        product.productId.toString() === id
+      const [id] = selectedSuggestion.split(" ");
+      const filtered = products.filter(
+        (product) => product.productId.toString() === id
       );
       setFilteredData(filtered);
     } else if (searchQuery) {
       const filtered = products.filter((product) =>
-        `${product.productId} ${product.title}`.toLowerCase().includes(searchQuery.toLowerCase())
+        `${product.productId} ${product.title}`
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase())
       );
       setFilteredData(filtered);
     } else {
@@ -63,15 +65,15 @@ export const ProductTable = () => {
 
   // Clear the search query and reset the table
   const handleClear = () => {
-    setSearchQuery('');
-    setSelectedSuggestion('');
+    setSearchQuery("");
+    setSelectedSuggestion("");
     setSearchInitiated(false);
     setFilteredData(products);
   };
 
   // Handle adding a new product
   const handleAddProduct = () => {
-    navigate('/add-new');
+    navigate("/add-new");
   };
 
   // Handle row click and navigate to single product page
@@ -80,12 +82,12 @@ export const ProductTable = () => {
     navigate(`/product/${row.productId}`);
   };
 
-  
-
   return (
     <>
       <div className="flex justify-between mb-2">
-        <h3 className="flex items-center text-xl font-semibold font-inter">Product List</h3>
+        <h3 className="flex items-center text-xl font-semibold font-inter">
+          Product List
+        </h3>
         <DefaultButton
           handleClick={handleAddProduct}
           btnLabel="New"
@@ -102,7 +104,9 @@ export const ProductTable = () => {
             value={searchQuery}
             placeholder="Search by Product ID or Name"
             onChange={handleSearchChange}
-            suggestions={products.map((product) => `${product.productId} ${product.title}`)} 
+            suggestions={products.map(
+              (product) => `${product.productId} ${product.title}`
+            )}
             onSuggestionSelect={handleSuggestionSelect}
           />
         </div>
@@ -125,8 +129,8 @@ export const ProductTable = () => {
         columns={ProductColumns}
         data={searchInitiated ? filteredData : products}
         itemsPerPage={10}
-        getRowId={(row) => row.productId} 
-        onRowClick={handleRowClick}  
+        getRowId={(row) => row.productId}
+        onRowClick={handleRowClick}
       />
     </>
   );

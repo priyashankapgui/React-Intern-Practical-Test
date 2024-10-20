@@ -6,7 +6,7 @@ export default function LoginPage() {
   return (
     <Layout>
       <div className="flex h-full">
-        {/*  Image */}
+        {/*Login Page  Image */}
         <div className="flex items-center justify-center w-1/2 pt-0 bg-gradient-to-b from-purple-300 to-white">
         <img src={warehouseImage} alt="Warehouse workers" className="w-2/3 h-auto pt-20" />
         </div>

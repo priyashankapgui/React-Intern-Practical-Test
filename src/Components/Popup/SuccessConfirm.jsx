@@ -1,5 +1,5 @@
 import React from 'react';
-import { RiCheckLine } from "react-icons/ri";  // Success icon
+import { RiCheckLine } from "react-icons/ri";  
 
 const SuccessConfirm = ({ message, onConfirm }) => {
   return (

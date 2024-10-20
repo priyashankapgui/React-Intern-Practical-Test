@@ -8,6 +8,7 @@ import {
 import { Button } from "../ui/button";
 import { cn } from "../../lib/utils";
 
+// Handle page change
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const handlePageChange = (newPage) => {
     if (newPage < 1 || newPage > totalPages) return;
@@ -19,6 +20,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   return (
     <div className="flex justify-end mt-4">
       <div className="flex items-center space-x-2">
+        
+        {/* Button to navigate to the first page */}
         <Button
           variant="outline"
           className="px-2 py-1 bg-purple-200 hover:bg-purple-300"
@@ -28,6 +31,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         >
           <DoubleArrowLeftIcon className="w-4 h-4" />
         </Button>
+
+        {/* Button to navigate to the previous page */}
         <Button
           variant="outline"
           className="px-2 py-1 bg-purple-200 hover:bg-purple-300"
@@ -37,6 +42,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         >
           <ChevronLeftIcon className="w-4 h-4" />
         </Button>
+
+        {/* Dynamically render the page numbers */}
         {pageNumbers.map((pageNumber) => {
           const isCurrentPage = pageNumber === currentPage;
           return (
@@ -55,6 +62,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
             </button>
           );
         })}
+
+        {/* Button to navigate to the next page */}
         <Button
           variant="outline"
           className="px-2 py-1 bg-purple-200 hover:bg-purple-300"
@@ -64,6 +73,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         >
           <ChevronRightIcon className="w-4 h-4" />
         </Button>
+
+        {/* Button to navigate to the last page */}
         <Button
           variant="outline"
           className="px-2 py-1 bg-purple-200 hover:bg-purple-300"
