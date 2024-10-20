@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { z } from "zod";
 import InputField from "@/Components/InputField/InputField";
 import { Textarea } from "@/Components/ui/textarea";
 import { AddNewItemSchema } from "@/schema/productsSchema/productSchema";
@@ -9,14 +8,14 @@ import { addProduct } from "@/apis/ProductApis/Apis";
 
 const AddNewProductForm = () => {
   const [formData, setFormData] = useState({
-    productTitle: "",
+    title: "",
     description: "",
     price: "",
-    discount: "",
-    stockQty: "",
+    discountPercentage: "",
+    stock: "",
     availabilityStatus: "",
     category: "",
-    brandName: "",
+    brand: "",
     warrantyInformation: "",
     shippingInformation: "",
   });
@@ -26,12 +25,14 @@ const AddNewProductForm = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+  
+    // Convert specific fields to numbers
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: (name === 'price' || name === 'stock' || name === 'discountPercentage') ? Number(value) : value,
     }));
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -56,14 +57,14 @@ const AddNewProductForm = () => {
 
   const handleClear = () => {
     setFormData({
-      productTitle: "",
+      title: "",
       description: "",
       price: "",
-      discount: "",
-      stockQty: "",
+      discountPercentage: "",
+      stock: "",
       availabilityStatus: "",
       category: "",
-      brandName: "",
+      brand: "",
       warrantyInformation: "",
       shippingInformation: "",
     });
@@ -88,9 +89,9 @@ const AddNewProductForm = () => {
             id="title"
             type="text"
             placeholder="Product Title"
-            value={formData.productTitle}
+            value={formData.title}
             onChange={handleInputChange}
-            name="productTitle"
+            name="title"
             className="w-full px-3 text-sm text-black border-2 border-purple-400 rounded-lg focus:outline-purple-600 h-11 "
           />
           {errors.productTitle && (
@@ -124,7 +125,7 @@ const AddNewProductForm = () => {
             {/*Price*/}
             <InputField
               id="price"
-              type="text"
+              type="number"
               placeholder="Price"
               value={formData.price}
               onChange={handleInputChange}
@@ -139,12 +140,12 @@ const AddNewProductForm = () => {
 
             {/*Discount*/}
             <InputField
-              id="discount"
-              type="text"
+              id=" discountPercentage"
+              type="number"
               placeholder="Discount"
-              value={formData.discount}
+              value={formData.discountPercentage}
               onChange={handleInputChange}
-              name="discount"
+              name="discountPercentage"
               className="w-full px-3 text-black border-2 border-purple-400 rounded-lg h-11 focus:outline-purple-600"
             />
             {errors.discount && (
@@ -160,12 +161,12 @@ const AddNewProductForm = () => {
 
             {/*Stock Qty*/}
             <InputField
-              id="stockQty"
-              type="text"
+              id="stock"
+              type="number"
               placeholder="Stock Qty"
-              value={formData.stockQty}
+              value={formData.stock}
               onChange={handleInputChange}
-              name="stockQty"
+              name="stock"
               className="w-full px-3 text-black border-2 border-purple-400 rounded-lg h-11 focus:outline-purple-600"
             />
             {errors.stockQty && (
@@ -219,12 +220,12 @@ const AddNewProductForm = () => {
 
             {/*Brand Name*/}
             <InputField
-              id="brandName"
+              id="brand"
               type="text"
               placeholder="Brand Name"
-              value={formData.brandName}
+              value={formData.brand}
               onChange={handleInputChange}
-              name="brandName"
+              name="brand"
               className="w-full px-3 text-black border-2 border-purple-400 rounded-lg h-11 focus:outline-purple-600"
             />
             {errors.brandName && (

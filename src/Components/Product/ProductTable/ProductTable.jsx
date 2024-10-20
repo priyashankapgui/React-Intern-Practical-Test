@@ -19,8 +19,9 @@ export const ProductTable = () => {
   useEffect(() => {
     getAllProduct()
       .then((data) => {
-        setProducts(data);
-        setFilteredData(data);
+        setProducts(data || []);  
+        setFilteredData(data || []);
+        console.log("Fetched Products:", data);
       })
       .catch((error) => {
         console.error('Error fetching products:', error);
@@ -47,12 +48,12 @@ export const ProductTable = () => {
     if (selectedSuggestion) {
       const [id] = selectedSuggestion.split(' ');
       const filtered = products.filter((product) =>
-        product.id.toString() === id
+        product.productId.toString() === id
       );
       setFilteredData(filtered);
     } else if (searchQuery) {
       const filtered = products.filter((product) =>
-        `${product.id} ${product.name}`.toLowerCase().includes(searchQuery.toLowerCase())
+        `${product.productId} ${product.title}`.toLowerCase().includes(searchQuery.toLowerCase())
       );
       setFilteredData(filtered);
     } else {
@@ -75,7 +76,8 @@ export const ProductTable = () => {
 
   // Handle row click and navigate to single product page
   const handleRowClick = (row) => {
-    navigate(`/product/${row.id}`); 
+    console.log(`Navigating to product with ID: ${row.productId}`);
+    navigate(`/product/${row.productId}`);
   };
 
   return (
@@ -98,7 +100,7 @@ export const ProductTable = () => {
             value={searchQuery}
             placeholder="Search by Product ID or Name"
             onChange={handleSearchChange}
-            suggestions={products.map((product) => `${product.id} ${product.title}`)}
+            suggestions={products.map((product) => `${product.productId} ${product.title}`)} 
             onSuggestionSelect={handleSuggestionSelect}
           />
         </div>
@@ -121,8 +123,8 @@ export const ProductTable = () => {
         columns={ProductColumns}
         data={searchInitiated ? filteredData : products}
         itemsPerPage={10}
-        getRowId={(row) => row.id}
-        onRowClick={handleRowClick}  // Add the row click handler
+        getRowId={(row) => row.productId} 
+        onRowClick={handleRowClick}  
       />
     </>
   );

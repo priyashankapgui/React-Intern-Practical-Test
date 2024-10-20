@@ -13,17 +13,38 @@ const ProductCard = ({ id }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Fetch all products and filter by ID
-    getAllProduct()
-      .then((products) => {
-        const foundProduct = products.find((item) => item.id === parseInt(id));
-        setProduct(foundProduct);
-        setRating(parseFloat(foundProduct.rating));
-      })
-      .catch((error) => console.error("Error fetching products:", error));
-  }, [id]);
+     // Fetch all products and filter by ID
+     useEffect(() => {
+      getAllProduct()
+        .then((products) => {
+          const foundProduct = products.find((item) => item.productId === id); 
+          if (foundProduct) {
+            setProduct(foundProduct);
+            setRating(parseFloat(foundProduct.rating || 0));  
+          }
+        })
+        .catch((error) => console.error("Error fetching products:", error));
+    }, [id]);
+    
 
+
+  // useEffect(() => {
+  //   getAllProduct()
+  //     .then((data) => {
+  //       // Ensure data exists and is not undefined
+  //       if (data.length > 0) {
+  //         const foundProduct = data[0]?.products.find((item) => item.id === parseInt(id));
+  //         if (foundProduct) {
+  //           setProduct(foundProduct);
+  //           setRating(parseFloat(foundProduct.rating || 0)); // Handle missing rating
+  //         } else {
+  //           console.error("Product not found");
+  //         }
+  //       }
+  //     })
+  //     .catch((error) => console.error("Error fetching products:", error));
+  // }, [id]);
+  
   if (!product) return <p>Loading...</p>;
 
   return (
@@ -131,7 +152,7 @@ const ProductCard = ({ id }) => {
   {showDeleteModal && (
     <DeleteConfirm
       onDelete={() => {
-        deleteProduct(product.id) // Call the delete API
+        deleteProduct(product.productId) 
           .then(() => {
             console.log("Product deleted");
             setShowDeleteModal(false);
