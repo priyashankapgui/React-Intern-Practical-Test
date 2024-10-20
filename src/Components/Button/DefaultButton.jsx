@@ -8,7 +8,9 @@ const DefaultButton = ({ handleClick, className = '', btnLabel = '',Icon }) => {
       onClick={handleClick} 
       variant="default" 
       size="default" 
-      className={`bg-gradient-to-r from-purple-500 to-purple-960  text-white font-inter font-semibold py-2 px-4 rounded hover:bg-gradient-to-r hover:from-purple-700 hover:to-purple-500 ${className}`}
+      className={`bg-gradient-to-r from-purple-500 to-purple-960  
+        text-white font-inter font-semibold py-2 px-4 rounded hover:bg-gradient-to-r
+         hover:from-purple-700 hover:to-purple-500 ${className}`}
     >
       {btnLabel} 
       {Icon}

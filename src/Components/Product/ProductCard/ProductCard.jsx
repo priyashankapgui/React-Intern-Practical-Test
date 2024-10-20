@@ -3,7 +3,7 @@ import DefaultButton from "@/Components/Button/DefaultButton";
 import { Label } from "@/Components/ui/label";
 import StarRatings from "react-star-ratings";
 import DeleteConfirm from "@/Components/Popup/Delete Popup";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { getAllProduct } from "@/apis/ProductApis/Apis";
 import { deleteProduct } from "@/apis/ProductApis/Apis";
 import Spinner from "@/Components/Spinner/Spinner";
@@ -14,24 +14,20 @@ const ProductCard = ({ id }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const navigate = useNavigate();
 
-     // Fetch all products and filter by ID
-     useEffect(() => {
-      getAllProduct()
-        .then((products) => {
-          const foundProduct = products.find((item) => item.productId === id); 
-          if (foundProduct) {
-            setProduct(foundProduct);
-            setRating(parseFloat(foundProduct.rating || 0));  
-          }
-        })
-        .catch((error) => console.error("Error fetching products:", error));
-    }, [id]);
-    
+  // Fetch all products and filter by ID
+  useEffect(() => {
+    getAllProduct()
+      .then((products) => {
+        const foundProduct = products.find((item) => item.productId === id);
+        if (foundProduct) {
+          setProduct(foundProduct);
+          setRating(parseFloat(foundProduct.rating || 0));
+        }
+      })
+      .catch((error) => console.error("Error fetching products:", error));
+  }, [id]);
 
-
-  
-  
-  if (!product) return <Spinner/>;
+  if (!product) return <Spinner />;
 
   return (
     <div className="flex h-full ">
@@ -69,7 +65,7 @@ const ProductCard = ({ id }) => {
         {/* Product Price and Discount */}
         <div className="flex items-center justify-between mb-5">
           <Label className="text-2xl font-semibold text-black font-inter">
-          Rs:  {product.price}
+            Rs: {product.price}
           </Label>
           <div className="text-right">
             <Label className="text-xl font-semibold text-gray-500 font-inter">
@@ -130,28 +126,28 @@ const ProductCard = ({ id }) => {
 
         {/* Delete Button */}
         <div className="text-right">
-  <DefaultButton
-    btnLabel="Delete"
-    handleClick={() => setShowDeleteModal(true)}
-    className="px-4 py-2 font-semibold text-white rounded w-44 from-red_btn to-red_btn font-inter hover:bg-gradient-to-r hover:from-red-400 hover:to-red-400"
-  />
-  {showDeleteModal && (
-    <DeleteConfirm
-      onDelete={() => {
-        deleteProduct(product.productId) 
-          .then(() => {
-            console.log("Product deleted");
-            setShowDeleteModal(false);
-            navigate('/product-list');
-          })
-          .catch((error) => {
-            console.error("Error deleting product:", error);
-          });
-      }}
-      onCancel={() => setShowDeleteModal(false)}
-    />
-  )}
-</div>
+          <DefaultButton
+            btnLabel="Delete"
+            handleClick={() => setShowDeleteModal(true)}
+            className="px-4 py-2 font-semibold text-white rounded w-44 from-red_btn to-red_btn font-inter hover:bg-gradient-to-r hover:from-red-400 hover:to-red-400"
+          />
+          {showDeleteModal && (
+            <DeleteConfirm
+              onDelete={() => {
+                deleteProduct(product.productId)
+                  .then(() => {
+                    console.log("Product deleted");
+                    setShowDeleteModal(false);
+                    navigate("/product-list");
+                  })
+                  .catch((error) => {
+                    console.error("Error deleting product:", error);
+                  });
+              }}
+              onCancel={() => setShowDeleteModal(false)}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

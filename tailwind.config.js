@@ -50,8 +50,6 @@ export default {
   			gray_normal: '#414045',
   			grad_light: '#444444',
   			green_light: '#2F7131',
-  			blue_light: '#23A3DA',
-  			blue_light_hover: '#A3B7FF',
   			red_bold: '#EB001B',
 			red_btn: '#F34F4F',
   			red_light: '#FF3B30',
