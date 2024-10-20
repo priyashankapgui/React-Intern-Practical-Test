@@ -70,7 +70,7 @@ const LoginForm = () => {
           {errors?.password && <p className="text-sm text-red-500">{errors.password._errors[0]}</p>}
         </div>
 
-        <DefaultButton btnLabel="Sign In" handleClick={handleSubmit} className="w-full py-2 mt-4 text-white bg-purple-500 rounded-md hover:bg-purple-600" />
+        <DefaultButton btnLabel="Sign In" handleClick={handleSubmit} className="w-full py-2 text-white bg-purple-500 rounded-md mt-9 hover:bg-purple-600" />
       </form>
     </div>
   );
