@@ -76,6 +76,8 @@ const TableWithPagi = ({
     return sortConfig.direction === "ascending" ? "sorted-asc" : "sorted-desc";
   };
 
+  
+
   return (
     <div className="w-full">
       {/* Table component */}
