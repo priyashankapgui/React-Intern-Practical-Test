@@ -50,8 +50,6 @@ export default {
   			gray_normal: '#414045',
   			grad_light: '#444444',
   			green_light: '#2F7131',
-  			blue_light: '#23A3DA',
-  			blue_light_hover: '#A3B7FF',
   			red_bold: '#EB001B',
 			red_btn: '#F34F4F',
   			red_light: '#FF3B30',
@@ -61,6 +59,7 @@ export default {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
 			  purple: {
+				20: '#F1D0FE',
 				30: '#f9e4ff',
 				40: '#f7dcff',
 				50: '#fcf4ff',
@@ -74,6 +73,7 @@ export default {
 				800: '#7b198f',
 				900: '#681a75',
 				950: '#43044e',
+				960: '#742889'
 			  },
   
   			card: {

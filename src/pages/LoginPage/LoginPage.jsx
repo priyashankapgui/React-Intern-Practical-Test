@@ -1,55 +1,22 @@
-import {useState} from 'react';
-import SaveButton from '../../Components/Button/DefaultButton'; 
-import InputField from '@/Components/InputField/InputField';
-import { FaRegUser } from "react-icons/fa";
-import PasswordField from '@/Components/InputField/PasswordField';
-import { ProductTable } from '../../Components/Product/ProductTable/ProductTable';
-import ProductCard from '@/Components/Product/ProductCard/ProductCard';
-
-
+import Layout from "@/Components/Layout/Layout";
+import LoginForm from "@/section/LoginForm/LoginForm";
+import warehouseImage from  "@/assets/images/rb_15026.png"
 
 export default function LoginPage() {
-  const handleSave = () => {
-    console.log('Saved!');
-  };
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  }
-
   return (
-    <div>
-      {/* <SaveButton handleSave={handleSave} btnLabel='Sign In' className='w-64' /> 
+    <Layout>
+      <div className="flex h-full">
+        {/*Login Page  Image */}
+        <div className="flex items-center justify-center w-1/2 pt-0 bg-gradient-to-b from-purple-300 to-white">
+        <img src={warehouseImage} alt="Warehouse workers" className="w-2/3 h-auto pt-20" />
+        </div>
 
-      <InputField
-          id="email"
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={handleEmailChange }
-          icon={<FaRegUser className="w-5 h-5" />}
-        />
-
-
-        <PasswordField
-          id="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={handlePasswordChange }
-          icon={<FaRegUser className="w-5 h-5" />}
-          /> */}
-
-          <ProductCard/>
-
-  
-
-    </div>
+        {/* LoginForm */}
+        <div className="flex flex-col items-center justify-center w-1/2 mt-28">
+          <h1 className="mb-8 text-5xl font-bold text-black font-inter">InventeX</h1>
+          <LoginForm />
+        </div>
+      </div>
+    </Layout>
   );
 }
