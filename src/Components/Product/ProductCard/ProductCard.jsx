@@ -3,24 +3,48 @@ import DefaultButton from "@/Components/Button/DefaultButton";
 import { Label } from "@/Components/ui/label";
 import StarRatings from "react-star-ratings";
 import DeleteConfirm from "@/Components/Popup/Delete Popup";
+import { useNavigate } from 'react-router-dom';
 import { getAllProduct } from "@/apis/ProductApis/Apis";
+import { deleteProduct } from "@/apis/ProductApis/Apis";
 
 const ProductCard = ({ id }) => {
   const [product, setProduct] = useState(null);
   const [rating, setRating] = useState(0);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    // Fetch all products and filter by ID
-    getAllProduct()
-      .then((products) => {
-        const foundProduct = products.find((item) => item.id === parseInt(id));
-        setProduct(foundProduct);
-        setRating(parseFloat(foundProduct.rating));
-      })
-      .catch((error) => console.error("Error fetching products:", error));
-  }, [id]);
+     // Fetch all products and filter by ID
+     useEffect(() => {
+      getAllProduct()
+        .then((products) => {
+          const foundProduct = products.find((item) => item.productId === id); 
+          if (foundProduct) {
+            setProduct(foundProduct);
+            setRating(parseFloat(foundProduct.rating || 0));  
+          }
+        })
+        .catch((error) => console.error("Error fetching products:", error));
+    }, [id]);
+    
 
+
+  // useEffect(() => {
+  //   getAllProduct()
+  //     .then((data) => {
+  //       // Ensure data exists and is not undefined
+  //       if (data.length > 0) {
+  //         const foundProduct = data[0]?.products.find((item) => item.id === parseInt(id));
+  //         if (foundProduct) {
+  //           setProduct(foundProduct);
+  //           setRating(parseFloat(foundProduct.rating || 0)); // Handle missing rating
+  //         } else {
+  //           console.error("Product not found");
+  //         }
+  //       }
+  //     })
+  //     .catch((error) => console.error("Error fetching products:", error));
+  // }, [id]);
+  
   if (!product) return <p>Loading...</p>;
 
   return (
@@ -120,21 +144,28 @@ const ProductCard = ({ id }) => {
 
         {/* Delete Button */}
         <div className="text-right">
-          <DefaultButton
-            btnLabel="Delete"
-            handleClick={() => setShowDeleteModal(true)}
-            className="px-4 py-2 font-semibold text-white rounded w-44 from-red_btn to-red_btn font-inter hover:bg-gradient-to-r hover:from-red-400 hover:to-red-400"
-          />
-          {showDeleteModal && (
-            <DeleteConfirm
-              onDelete={() => {
-                console.log("Product deleted");
-                setShowDeleteModal(false);
-              }}
-              onCancel={() => setShowDeleteModal(false)}
-            />
-          )}
-        </div>
+  <DefaultButton
+    btnLabel="Delete"
+    handleClick={() => setShowDeleteModal(true)}
+    className="px-4 py-2 font-semibold text-white rounded w-44 from-red_btn to-red_btn font-inter hover:bg-gradient-to-r hover:from-red-400 hover:to-red-400"
+  />
+  {showDeleteModal && (
+    <DeleteConfirm
+      onDelete={() => {
+        deleteProduct(product.productId) 
+          .then(() => {
+            console.log("Product deleted");
+            setShowDeleteModal(false);
+            navigate('/product-list');
+          })
+          .catch((error) => {
+            console.error("Error deleting product:", error);
+          });
+      }}
+      onCancel={() => setShowDeleteModal(false)}
+    />
+  )}
+</div>
       </div>
     </div>
   );

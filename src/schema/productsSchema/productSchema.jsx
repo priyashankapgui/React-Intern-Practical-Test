@@ -1,15 +1,14 @@
 import { z } from 'zod';
 
 export const AddNewItemSchema = z.object({
-  productTitle: z.string().nonempty("Product title is required"),
+  title: z.string().nonempty("Product title is required"),
   description: z.string().nonempty("Description is required"),
-  price: z.string().nonempty("Price is required"),  
-  discount: z.string().optional(),  
-  stockQty: z.string().nonempty("Stock quantity is required"),
+  price: z.coerce.number().min(1, "Price is required and must be greater than 0"),
+  discountPercentage: z.coerce.number().optional(),        
+  stock: z.coerce.number().min(1, "Stock quantity is required and must be greater than 0"), 
   availabilityStatus: z.string().nonempty("Availability status is required"), 
   category: z.string().nonempty("Category is required"),
-  brandName: z.string().optional(),
+  brand: z.string().optional(),
   warrantyInformation: z.string().optional(),
   shippingInformation: z.string().optional(),
 });
-
