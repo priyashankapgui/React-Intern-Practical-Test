@@ -6,6 +6,7 @@ import DeleteConfirm from "@/Components/Popup/Delete Popup";
 import { useNavigate } from 'react-router-dom';
 import { getAllProduct } from "@/apis/ProductApis/Apis";
 import { deleteProduct } from "@/apis/ProductApis/Apis";
+import Spinner from "@/Components/Spinner/Spinner";
 
 const ProductCard = ({ id }) => {
   const [product, setProduct] = useState(null);
@@ -28,24 +29,9 @@ const ProductCard = ({ id }) => {
     
 
 
-  // useEffect(() => {
-  //   getAllProduct()
-  //     .then((data) => {
-  //       // Ensure data exists and is not undefined
-  //       if (data.length > 0) {
-  //         const foundProduct = data[0]?.products.find((item) => item.id === parseInt(id));
-  //         if (foundProduct) {
-  //           setProduct(foundProduct);
-  //           setRating(parseFloat(foundProduct.rating || 0)); // Handle missing rating
-  //         } else {
-  //           console.error("Product not found");
-  //         }
-  //       }
-  //     })
-  //     .catch((error) => console.error("Error fetching products:", error));
-  // }, [id]);
   
-  if (!product) return <p>Loading...</p>;
+  
+  if (!product) return <Spinner/>;
 
   return (
     <div className="flex h-full ">

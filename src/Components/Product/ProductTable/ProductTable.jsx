@@ -80,6 +80,8 @@ export const ProductTable = () => {
     navigate(`/product/${row.productId}`);
   };
 
+  
+
   return (
     <>
       <div className="flex justify-between mb-2">
