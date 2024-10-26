@@ -4,6 +4,7 @@ import Login from '../pages/LoginPage/LoginPage';
 import AddNewPage from '@/pages/AddNewPage/AddNewPage';
 import SingleProductPage from '@/pages/SingleProductPage/SingleProductPage';
 import ProductList from '@/pages/ProductList/ProductList';
+import Tespage from '@/pages/Tespage/Tespage';
 
 const Routers = () => {
   return (
@@ -13,6 +14,7 @@ const Routers = () => {
         <Route path='/product-list' element={<ProductList/>}/>
         <Route path='/add-new' element={<AddNewPage />} />
         <Route path='/product/:id' element={<SingleProductPage />} />
+        <Route path='/test' element={<Tespage/>} />
       </Routes>
     </div>
   )
