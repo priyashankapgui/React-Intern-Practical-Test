@@ -29,7 +29,7 @@ InventeX is a store-keeping application developed using React, Vite, and styled 
 
 - If you want to full-stack application, then please Colne the React-Intern-Practical-Test--Server
 - https://github.com/priyashankapgui/React-Intern-Practical-Test--Server.git
--Project Host Link 
--- FrontEnd - https://inventexprioject.netlify.app/
+- Project Host Link 
+- FrontEnd - https://inventexprioject.netlify.app/
 (user name - ushan@gmail.com password- 123456)
--- Backend  - react-intern-practical-test-server-dyz8.vercel.app
+
