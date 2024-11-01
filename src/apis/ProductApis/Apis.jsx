@@ -2,7 +2,7 @@ import { data } from "autoprefixer";
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8070",
+  baseURL: "https://react-intern-practical-test-server-gzn5.vercel.app/",
 });
 
 // Add a product
